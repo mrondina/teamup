@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Welcome to Giddy</title>
+		<title>Welcome to Giddy teamup!</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	    <meta name="description" content="Demo project">
+	    <meta name="description" content="giddy teamup">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
 		<script src="https://use.typekit.net/jqa5eop.js"></script>
 		<script>try{Typekit.load({ async: true });}catch(e){}</script>
+		<link rel="stylesheet" href="assets/css/nanoreset.min.css">
 		<link rel="stylesheet" href="assets/css/normalize.css">
 		<link rel="stylesheet" href="assets/css/main.css">
 	</head>
@@ -16,26 +18,19 @@
 			<div id="logo"><img src="http://giddy.io/images/giddy-logo-6707fac408.png" alt="giddy logo"></div>
 			<nav>
 				<ul>
-					<li class="active"><a href="#">About</a></li>
-					<li><a href="#">How It Works</a></li>
-					<li><a href="#">Community</a></li>
+					<li class="active"><a href="#about">About</a></li>
+					<li><a href="#how-it-works">How It Works</a></li>
+					<li><a href="#community">Community</a></li>
 					<li><a href="#">Get Giddy</a></li>
 				</ul>
 			</nav>
 		</div>
-		<div class="hero-banner">
+		<div class="hero-banner" id="about">
 		</div>
 		<div class="scroll-please"></div>
 		<div class="container">
 			<div class="pure-g">
-				<div class="scroll-watcher top-watcher"></div>
-				<div class="static-phone">
-						<img src="./assets/images/iphone-silver-frame.png" />
-						<div class="phone-screen"></div>
-						<div class="phone-screen"></div>
-						<div class="phone-screen"></div>
-						<div class="phone-screen"></div>
-				</div>
+				
 				<div class="hero-info pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-1-2">
 					<h1 class="hero-heading">A new product innovation platform that enables you to do what you love</h1>
 				</div>
@@ -45,8 +40,7 @@
 					<h1 class="section-title">How It Works</h1>
 				</div>
 			</div>
-			<article class="pure-g content-section scroll-parent">
-				<div class="scroll-watcher hiw-watcher"></div>
+			<article class="pure-g content-section scroll-parent" id="how-it-works">
 				<div class="pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-5-6">
 					<h3>Challenge Yourself, Feel Amazing</h3>
 					<p>On giddy, challenges provide the framework to enable individuals and creators to inspire each other and big communities with new product ides.
@@ -60,7 +54,6 @@
 			</article>
 			
 			<article class="pure-g content-section scroll-parent">
-				<div class="scroll-watcher showtell-watcher"></div>
 				
 				<div class="pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-5-6">
 					<h3>Show &amp; Tell</h3>
@@ -78,7 +71,6 @@
 				</div>
 			</article>
 			<article class="pure-g content-section scroll-parent">
-				<div class="scroll-watcher emojivoting-watcher"></div>
 				
 				<div class="pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-5-6">
 					<h3>Emoji Voting FTW</h3>
@@ -89,7 +81,7 @@
 					<img src="assets/images/character-winning.png" />
 				</div>
 			</article>
-			<article class="pure-g content-section">
+			<article class="pure-g content-section" id="community">
 				<div class="pure-u-sm-1-1 pure-u-md-1-1 pure-u-lg-1-1 section-title">
 					<h1>A Community of Creators</h1>
 				</div>
@@ -139,42 +131,55 @@
 				</div>
 			</div>
 		</footer>
-		<script src="http://cdn.jsdelivr.net/scroll-watcher/latest/scroll-watcher.min.js"></script>
 		<script type="text/javascript">
-			var screens;
-            function startWatching() {
-			  screens = document.getElementsByClassName('phone-screen');
-              var scroll = new ScrollWatcher();
-              scroll.watch('.top-watcher')
-                  .on('enter', function (evt) {
-                    handleEntrance(0);
-                  })
-              scroll.watch('.hiw-watcher')
-                  .on('enter', function (evt) {
-                    handleEntrance(1);
-                  })
-              scroll.watch('.showtell-watcher')
-                  .on('enter', function (evt) {
-                    handleEntrance(2);
-                  })
-              scroll.watch('.emojivoting-watcher')
-                  .on('enter', function (evt) {
-                    handleEntrance(3);
-                  })
-            }
+			var navSelector = 'nav li'
+			$(navSelector).on('click', function() {
+				$(navSelector).removeClass('active');
+				$(this).addClass('active');
+				// close the menu which is driven by a checkbox
+				$("#menu-toggle").prop("checked", false)
+			});
 
-            function handleEntrance(which) {
-              for (var i = 0; i < screens.length; i++) {
-                if (i !== which) {
-                  screens[i].setAttribute('style', 'opacity: 0');
-                } else {
-                  screens[which].setAttribute('style', 'opacity: 1');
-				}
-
-              }
-            }
-
-            startWatching();
+			
+			$('a[href*="#"]')
+			  // Remove links that don't actually link to anything
+			  .not('[href="#"]')
+			  .not('[href="#0"]')
+			  .click(function(event) {
+			    // On-page links
+			    if (
+			      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
+			      &&
+			      location.hostname == this.hostname
+			    ) {
+			      // Figure out element to scroll to
+			      var addedOffset;
+			      var target = $(this.hash);
+			      
+			      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+			      // Does a scroll target exist?
+			      if (target.length) {
+					if( window.innerWidth > 567 ){
+						//console.log("inner width is > 567");
+					    addedOffset = 200;
+					} else {
+					    addedOffset = 50;
+					} 
+					
+			        // Only prevent default if animation is actually gonna happen
+			        event.preventDefault();
+			        $('html, body').animate({
+			     	  
+			          scrollTop: target.offset().top - addedOffset
+			        }, 1000, function() {
+			          // Callback after animation
+			          // Must change focus!
+			          var $target = $(target);
+			        
+			        });
+			      }
+			    }
+			  });
 		</script>
 	</body>
 </html>

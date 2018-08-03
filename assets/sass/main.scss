@@ -1,7 +1,7 @@
 // Import vars
 @import "_variables.scss";
 @import "_mixins.scss";
-@import "_nanoreset.min.css";
+
 
 // * {
 // 	border: 1px dotted $brand-primary-action;
@@ -105,7 +105,7 @@ nav {
 .hero-banner {
 	width: 100vw;
 	height: 75vh;
-	background: url("../images/woman-drilling.jpg") no-repeat center center fixed;
+	background: url("../images/teamup-person-banner3.jpg") no-repeat center center fixed;
 	@include img-full-center;
 	overflow: hidden;
 	@include breakpoint(large-tablet) {
