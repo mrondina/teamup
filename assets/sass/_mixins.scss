@@ -50,6 +50,18 @@
 	}
 }
 
+@mixin all-ease-in {
+  -webkit-transition: all 0.5s ease-in;
+    -moz-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+}
+
+@mixin all-ease-out {
+  -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+
 
 // ------------------------- BREAKPOINTS --------------------------- //
 
